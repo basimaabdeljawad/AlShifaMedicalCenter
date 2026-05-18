@@ -1,0 +1,5 @@
+send_reply.php
+reply_log.txt
+*.log
+.env
+.idea/
