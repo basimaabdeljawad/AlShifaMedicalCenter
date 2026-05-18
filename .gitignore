@@ -3,3 +3,7 @@ reply_log.txt
 *.log
 .env
 .idea/
+
+test_db.php
+
+uploads/
