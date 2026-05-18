@@ -1,0 +1,283 @@
+:root {
+    --primary-blue: #114aba;
+    --dark-blue: #1a3761;
+    --accent-blue: #0a84ff;
+    --accent-light: #4db3b3;
+    --soft-blue: #eaf3ff;
+    --light-bg: #f8fbff;
+    --white: #ffffff;
+    --text-dark: #24364b;
+    --text-light: #64748b;
+    --border-light: #dbe7f5;
+    --shadow-soft: 0 12px 30px rgba(17, 74, 186, 0.08);
+    --shadow-hover: 0 18px 35px rgba(17, 74, 186, 0.14);
+    --transition: all 0.3s ease;
+    --medical-gradient: linear-gradient(135deg, #114aba 0%, #0a84ff 100%);
+    --footer-bg: #0f3057;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--light-bg);
+    direction: rtl;
+    color: var(--text-dark);
+    overflow-x: hidden;
+}
+
+.container {
+    width: min(1200px, 92%);
+    margin: auto;
+}
+
+/* ================= HERO ================= */
+.doctors-hero {
+    position: relative;
+    width: 100%;
+    min-height: 430px;
+    background: linear-gradient(135deg, rgba(21, 89, 200, 0.2), rgba(0, 0, 0, 0.4)), url('../images/doctor.png');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 100px 5% 50px; /* تم تعديل الـ padding لضمان المسافة */
+    overflow: hidden;
+}
+
+.doctors-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.88) 15%,
+            rgba(255, 255, 255, 0.55) 45%,
+            rgba(255, 255, 255, 0.08) 100%
+    );
+    z-index: 1;
+}
+
+.hero-text-container {
+    position: relative;
+    z-index: 2;
+    background-color: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    padding: 50px 35px;
+    border-radius: 30px;
+    max-width: 460px;
+    text-align: right;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.hero-text-container h1 {
+    font-size: 2.6rem;
+    color: var(--dark-blue);
+    line-height: 1.5;
+    margin-bottom: 18px;
+    font-weight: 800;
+}
+
+.hero-text-container h1 span {
+    color: var(--primary-blue);
+    display: inline-block;
+}
+
+.hero-text-container p {
+    font-size: 1.08rem;
+    color: var(--text-light);
+    line-height: 1.9;
+    margin-bottom: 28px;
+    font-weight: 400;
+}
+
+.scroll-btn {
+    text-decoration: none;
+    font-weight: 700;
+    color: var(--primary-blue);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: var(--transition);
+}
+
+.scroll-btn:hover {
+    color: var(--dark-blue);
+    transform: translateX(-4px);
+}
+
+/* ================= SEARCH ================= */
+.search-section {
+    width: 100%;
+    text-align: center;
+    padding: 55px 0 35px;
+    background-color: var(--soft-blue);
+}
+
+.search-title {
+    text-align: center;
+    color: var(--dark-blue);
+    font-size: 2rem;
+    margin-bottom: 30px;
+    font-weight: 800;
+}
+
+.search-flex {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 18px;
+    padding: 20px;
+    direction: rtl;
+    flex-wrap: nowrap;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    flex: 1;
+    max-width: 280px;
+}
+
+.input-group label {
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--dark-blue);
+}
+
+.input-group input,
+.input-group select {
+    padding: 12px 14px;
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    outline: none;
+    background: var(--white);
+    transition: var(--transition);
+    color: var(--text-dark);
+    font-size: 0.95rem;
+}
+
+.btn-search {
+    background: var(--medical-gradient);
+    color: white;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: var(--transition);
+    min-width: 130px;
+    height: 47px;
+}
+
+.btn-search:hover {
+    background: var(--dark-blue);
+    transform: translateY(-2px);
+}
+
+/* ================= DOCTORS ================= */
+.doctors-list {
+    padding-bottom: 30px;
+}
+
+.doctors-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 55px 30px;
+}
+
+/* تعديل الرابط ليغلف الكارت بالكامل */
+.doctor-link {
+    text-decoration: none; /* إزالة الخط السفلي */
+    color: inherit; /* الحفاظ على ألوان النصوص */
+    display: block;
+}
+
+.doctor-card {
+    text-align: center;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.image-wrapper {
+    width: 240px;
+    height: 240px;
+    margin: 0 auto 20px;
+    overflow: hidden;
+    border-radius: 50%;
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    border: 4px solid var(--white);
+    background: var(--white);
+}
+
+.image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.doctor-name {
+    color: var(--dark-blue);
+    font-size: 1.35rem;
+    margin-bottom: 8px;
+    font-weight: 800;
+    transition: var(--transition);
+}
+
+.doctor-specialty {
+    color: var(--primary-blue);
+    font-size: 1rem;
+    margin: 0;
+    font-weight: 600;
+}
+
+/* تأثير الهوفر عند مرور الماوس على الرابط */
+.doctor-link:hover .image-wrapper {
+    transform: scale(1.06);
+    box-shadow: var(--shadow-hover);
+}
+
+.doctor-link:hover .doctor-name {
+    color: var(--primary-blue);
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 1200px) {
+    .doctors-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .search-flex {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .input-group {
+        max-width: 100%;
+    }
+    .doctors-container {
+        grid-template-columns: 1fr;
+    }
+}

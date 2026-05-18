@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>مركز الشفاء الطبي - Shifa Medical Center</title>
+  <link rel="stylesheet" href="styles/myst.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/homeb.css">
+  <link rel="stylesheet" href="styles/doctor.css">
+</head>
+<body>
+
+<div id="header-placeholder"></div>
+
+<main>
+  <section class="doctors-hero">
+    <div class="hero-text-container">
+      <h1>نخبة من <span>أفضل الأطباء</span> في خدمتك</h1>
+      <p>
+        فريقنا الطبي يجمع بين الخبرة الطويلة والتقنيات الحديثة لضمان أفضل رعاية
+        صحية لك ولعائلتك، في بيئة علاجية مريحة وآمنة.
+      </p>
+      <a href="#our-doctors" class="scroll-btn">
+        تعرف على فريقنا
+        <i class="fas fa-arrow-down"></i>
+      </a>
+    </div>
+  </section>
+
+  <section class="doctors-list" id="our-doctors">
+    <div class="search-section">
+      <div class="container">
+        <h2 class="search-title">ابحث عن طبيبك المختص</h2>
+        <div class="search-flex">
+          <div class="input-group">
+            <label for="doc-name">اسم الطبيب</label>
+            <input type="text" id="doc-name" placeholder="مثلاً: د. أحمد..." />
+          </div>
+          <div class="input-group">
+            <label for="doc-spec">التخصص الطبي</label>
+            <!-- يتم ملؤها تلقائياً من قاعدة البيانات -->
+            <select id="doc-spec">
+              <option value="">كل التخصصات</option>
+            </select>
+          </div>
+          <button class="btn-search" onclick="searchDoctors()">بحث الآن</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- كروت الأطباء — تُحقن من PHP -->
+    <div class="doctors-container" id="doctors-container">
+      <!-- Loading State -->
+      <div class="loading-state" id="loading-state">
+        <i class="fas fa-circle-notch fa-spin"></i>
+        <p>جاري تحميل الأطباء...</p>
+      </div>
+    </div>
+
+    <!-- رسالة عدم وجود نتائج -->
+    <div class="empty-state" id="empty-state" style="display:none">
+      <i class="fas fa-user-md"></i>
+      <p>لا يوجد أطباء مطابقون للبحث</p>
+    </div>
+  </section>
+</main>
+
+<div id="footer-placeholder"></div>
+
+<script src="script.js"></script>
+
+<script>
+  // ══════════════════════════════════════════════════════
+  //  جلب الأطباء من قاعدة البيانات
+  // ══════════════════════════════════════════════════════
+
+  // صورة افتراضية إن لم يكن للطبيب صورة
+  const DEFAULT_IMG = 'images/default-doctor.png';
+
+  // ── جلب عند تحميل الصفحة ────────────────────────────
+  document.addEventListener('DOMContentLoaded', () => {
+    loadSpecializations();   // ملء قائمة التخصصات
+    loadDoctors();           // تحميل كل الأطباء
+  });
+
+  // ── تحميل التخصصات في الـ select ────────────────────
+  async function loadSpecializations() {
+    try {
+      const res  = await fetch('get_doctors.php');
+      const data = await res.json();
+      if (!data.success) return;
+
+      const select = document.getElementById('doc-spec');
+      data.specializations.forEach(s => {
+        const opt   = document.createElement('option');
+        opt.value   = s.specialty_id;
+        opt.textContent = s.specialty_name;
+        select.appendChild(opt);
+      });
+    } catch(e) { /* صمت */ }
+  }
+
+  // ── تحميل الأطباء (مع فلاتر اختيارية) ───────────────
+  async function loadDoctors(name = '', specialty = '') {
+    const container   = document.getElementById('doctors-container');
+    const emptyState  = document.getElementById('empty-state');
+    const loadingState= document.getElementById('loading-state');
+
+    // إظهار Loading
+    container.innerHTML = '';
+    loadingState.style.display = 'flex';
+    container.appendChild(loadingState);
+    emptyState.style.display = 'none';
+
+    try {
+      // بناء URL مع الفلاتر
+      const params = new URLSearchParams();
+      if (name)     params.set('name', name);
+      if (specialty) params.set('specialty', specialty);
+
+      const res  = await fetch('get_doctors.php?' + params.toString());
+      const data = await res.json();
+
+      // إخفاء Loading
+      loadingState.style.display = 'none';
+
+      if (!data.success) {
+        container.innerHTML = '<p style="text-align:center;color:#e05252">حدث خطأ في جلب البيانات</p>';
+        return;
+      }
+
+      const doctors = data.doctors;
+
+      if (doctors.length === 0) {
+        emptyState.style.display = 'flex';
+        return;
+      }
+
+      // بناء الكروت
+      container.innerHTML = doctors.map(d => buildCard(d)).join('');
+
+    } catch(e) {
+      loadingState.style.display = 'none';
+      container.innerHTML = '<p style="text-align:center;color:#e05252">تعذّر الاتصال بالسيرفر</p>';
+    }
+  }
+
+  // ── بناء كرت الطبيب ──────────────────────────────────
+  function buildCard(d) {
+    const imgSrc = d.image_url ? d.image_url : DEFAULT_IMG;
+    const name   = d.full_name   || 'طبيب';
+    const spec   = d.specialty_name || '';
+    const id     = d.doctor_id;
+
+    // يمكنك تغيير رابط البروفايل كما تريد
+    return `
+        <a href="profdoctor.php?id=${id}" class="doctor-link">
+            <div class="doctor-card">
+                <div class="image-wrapper">
+                    <img
+                        src="${imgSrc}"
+                        alt="${name}"
+                        onerror="this.src='${DEFAULT_IMG}'"
+                    />
+                </div>
+                <h3 class="doctor-name">${name}</h3>
+                <p class="doctor-specialty">${spec}</p>
+            </div>
+        </a>
+    `;
+  }
+
+  // ── زر البحث ─────────────────────────────────────────
+  function searchDoctors() {
+    const name    = document.getElementById('doc-name').value.trim();
+    const specialty = document.getElementById('doc-spec').value;
+    loadDoctors(name, specialty);
+  }
+
+  // بحث تلقائي عند الكتابة (اختياري)
+  document.getElementById('doc-name').addEventListener('keydown', e => {
+    if (e.key === 'Enter') searchDoctors();
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,162 @@
+/* الإعدادات العامة للموقع */
+:root {
+    --primary: #1e3a8a;
+    --secondary: #3b82f6;
+    --accent: #10b981;
+    --bg-gradient: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+    --card-bg: #ffffff;
+    --text-dark: #1f2937;
+    --text-light: #6b7280;
+    --radius: 16px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html, body {
+    height: 100%; /* ضروري جداً لجعل الفوتر يلتصق بالأسفل */
+    margin: 0;
+}
+
+/* 1. تعريف الخط العام للجسم */
+body {
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    background: var(--bg-gradient);
+    color: var(--text-dark);
+    direction: rtl;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 2. الخط للمدخلات والأزرار */
+button, input, select, textarea {
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+}
+
+/* 3. حاوية المحتوى الرئيسي */
+.main-wrapper {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 100px 20px 60px;
+    flex: 1 0 auto;
+    box-sizing: border-box;
+}
+
+/* 4. الحماية القصوى للأيقونات (يجب أن يكون هذا في الأسفل) */
+.fas, .far, .fab, .fa, i {
+    font-family: "Font Awesome 5 Free" !important; /* تأكد أن الإصدار 5 أو 6 حسب ما تستخدم */
+    font-weight: 900 !important;
+}
+
+/* بطاقة الحجز */
+.booking-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.page-title { font-size: 1.8rem; color: var(--primary); margin-bottom: 5px; }
+.page-subtitle { color: var(--text-light); margin-bottom: 30px; font-size: 0.95rem; }
+
+/* Grid Layouts */
+.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+.grid-main { display: grid; grid-template-columns: 1fr 2fr; gap: 30px; margin-bottom: 25px; }
+.mb-20 { margin-bottom: 20px; }
+
+label { display: block; font-weight: 700; margin-bottom: 8px; color: var(--primary); font-size: 0.9rem; }
+label i { margin-left: 5px; color: var(--secondary); }
+
+.modern-input, select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e5e7eb;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-family: inherit;
+    background: #fdfdfd;
+    transition: var(--transition);
+    box-sizing: border-box;
+}
+
+textarea.modern-input { resize: none; width: 100%; box-sizing: border-box; }
+
+/* Time Slots */
+.time-slots-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; }
+.time-btn {
+    display: block;
+    padding: 10px;
+    text-align: center;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+input[type="radio"]:checked + .time-btn {
+    background: var(--secondary);
+    color: #fff;
+    border-color: var(--secondary);
+}
+
+/* User Section */
+.card-section {
+    background: #f7f9fc;
+    border-radius: 14px;
+    padding: 25px;
+    margin-bottom: 25px;
+    border: 1px solid #e0e7ff;
+}
+
+.section-title { font-size: 1.1rem; color: var(--primary); margin-bottom: 20px !important; font-weight: 600; }
+
+/* File Upload */
+.file-upload-wrapper .file-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    border: 2px dashed #cbd5e1;
+    border-radius: 10px;
+    cursor: pointer;
+    background: #fff;
+    transition: var(--transition);
+    color: var(--text-light);
+    font-size: 0.8rem;
+}
+
+/* Button */
+.main-submit-btn {
+    width: 100%;
+    background: var(--primary);
+    color: white;
+    padding: 16px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    transition: var(--transition);
+}
+.main-submit-btn:hover { background: #1e40af; transform: translateY(-2px); }
+
+/* تنسيق حاوية الفوتر المستدعى */
+#footer-placeholder {
+    width: 100%;
+    flex-shrink: 0; /* يمنع الفوتر من الانضغاط */
+}
+
+@media (max-width: 768px) {
+    .grid-2, .grid-main { grid-template-columns: 1fr; }
+    .booking-card { padding: 20px; }
+}

@@ -1,0 +1,437 @@
+/* الإعدادات العامة للموقع */
+body {
+    font-family: 'IBM Plex Sans Arabic', 'Cairo', sans-serif;
+    margin: 0;
+    direction: rtl; /* لضمان توافق العناصر مع اللغة العربية */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+main, .hero, .specialties-hero, .cards-section {
+    flex: 1 0 auto;
+}
+:root {
+    --primary-medical: #114abb;
+    --secondary-medical: #00b4d8;
+    --text-dark: #2d3436;
+    --transition-speed: 0.4s;
+    --primary: #0062ff;
+    --secondary: #00d2ff;
+    --text-light: #64748b;
+    --bg-light: #fdfdff;
+    --glass-bg: rgba(255, 255, 255, 0.85);
+    --shadow-soft: 0 20px 50px rgba(0, 0, 0, 0.03);
+    --shadow-hover: 0 30px 60px rgba(0, 98, 255, 0.1);
+    --transition: all .35s ease;
+    --medical-blue: #0a84ff;
+    --medical-gradient: linear-gradient(135deg, #0a84ff 0%, #0055ff 100%);
+    --dark-text: #1d1d1f;
+    --light-gray: #f5f5f7;
+    --card-white: #ffffff;
+}
+
+/* شريط التنقل - Navbar */
+.navbar {
+    display: flex;
+    align-items: center;
+    background-color: #FFFFFF;
+    padding: 3px 60px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 2000; /* تم رفع الـ z-index لضمان الظهور فوق محتوى التخصصات */
+    box-sizing: border-box;
+    height: 80px; /* توحيد الارتفاع */
+}
+
+.logo-img {
+    width: 160px;
+    height: auto;
+    display: block;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin-right: 50px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--primary-medical);
+    font-size: 17px;
+    font-weight: 500;
+    position: relative;
+    padding: 8px 12px;
+    transition: var(--transition-speed) ease-in-out;
+    border-radius: 6px;
+}
+
+.nav-links a:hover {
+    color: var(--text-dark);
+    background-color: rgba(0, 180, 216, 0.05);
+}
+
+.nav-left-section {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-right: auto;
+}
+
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary-medical), var(--secondary-medical));
+    transition: var(--transition-speed) cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transform: translateX(-50%);
+}
+
+.nav-links a:hover::after {
+    width: 80%;
+}
+
+/* زر احجز الآن */
+.booking-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 20px;
+    border: 1.5px solid #d1e3ff;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #2b7fff;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+}
+
+.booking-btn i {
+    font-size: 18px;
+    color: #2b7fff !important; /* ضمان ظهور لون الأيقونة */
+}
+
+.booking-btn:hover {
+    background-color: rgba(43, 127, 255, 0.03);
+    border-color: #2b7fff;
+    transform: translateY(-1px);
+}
+
+/* أيقونة تسجيل الدخول */
+.login-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: white !important; /* ضمان اللون الأبيض للأيقونة */
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 18px;
+    box-shadow: 0 3px 8px rgba(0, 180, 216, 0.15);
+    transition: all 0.3s ease;
+}
+
+.login-avatar i {
+    color: white !important; /* تأكيد ظهور الأيقونة باللون الأبيض */
+}
+
+.login-avatar:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 12px rgba(0, 180, 216, 0.25);
+    filter: brightness(1.05);
+}
+
+/* قسم الهيرو - Hero Section (الرئيسية) */
+.hero {
+    height: 100vh;
+    background: url("../images/home.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 0 20px;
+}
+
+/* قسم الهيرو (التخصصات) */
+.specialties-hero {
+    height: 600px;
+    background-image: linear-gradient(rgba(11, 74, 187, 0.8), rgba(0, 180, 216, 0.7)), url('../images/num1.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    margin-top: 80px; /* لإزاحة المحتوى تحت الهيدر الثابت */
+}
+
+/* باقي كود التخصصات والإحصائيات كما هو دون أي تغيير في التصميم */
+.hero-content h1 { font-size: 50px; margin-bottom: 20px; }
+.hero-content p { font-size: 23px; margin-bottom: 45px; }
+.hero-btn {
+    background-color: white; color: #0f4c75; padding: 12px 30px;
+    text-decoration: none; border-radius: 30px; font-weight: bold; transition: 0.3s;
+}
+.hero-btn:hover { background: var(--text-dark); color: white; transform: translateY(-3px); }
+
+.medical-stats-premium { position: relative; padding: 100px 0; background: var(--bg-light); overflow: hidden; direction: rtl; }
+.bg-blur-circle { position: absolute; border-radius: 50%; filter: blur(100px); z-index: 1; }
+.circle-1 { width: 300px; height: 300px; background: rgba(0, 98, 255, 0.08); top: -50px; left: -50px; }
+.circle-2 { width: 400px; height: 400px; background: rgba(0, 210, 255, 0.1); bottom: -100px; right: -50px; }
+.stats-container { max-width: 1240px; margin: auto; padding: 0 20px; position: relative; z-index: 2; }
+.stats-header { text-align: center; margin-bottom: 60px; }
+.badge { background: rgba(0, 98, 255, 0.1); color: var(--primary); padding: 8px 22px; border-radius: 50px; font-size: .9rem; font-weight: 600; }
+.main-title { font-size: 2.8rem; color: var(--text-dark); margin-top: 16px; font-weight: 800; text-align: center; }
+.stats-wrapper { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 28px; }
+
+.premium-card {
+    background: var(--card-white); border: 1.5px solid transparent; padding: 50px 30px; border-radius: 26px;
+    text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    position: relative; box-shadow: var(--shadow-soft); transition: var(--transition);
+    background-image: linear-gradient(var(--card-white), var(--card-white)),
+    linear-gradient(135deg, var(--primary-medical) 0%, rgba(0, 180, 216, 0.4) 50%, var(--primary-medical) 100%);
+    background-origin: border-box; background-clip: padding-box, border-box;
+}
+
+.premium-card:hover { transform: translateY(-12px) scale(1.02); box-shadow: var(--shadow-hover); background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; }
+.premium-card:hover .label, .premium-card:hover .number, .premium-card:hover .plus { color: white; }
+.icon-wrapper { width: 60px; height: 60px; border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 25px; }
+.icon-wrapper svg { width: 30px; height: 30px; }
+.pulse-blue { background: #eef4ff; color: #0062ff; }
+.pulse-green { background: #f0fdf4; color: #16a34a; }
+.pulse-purple { background: #f5f3ff; color: #7c3aed; }
+.pulse-gold { background: #fffcf0; color: #ca8a04; }
+.counter-box { display: flex; align-items: center; justify-content: center; margin: 15px 0; }
+.number { font-size: 3rem; font-weight: 900; color: var(--text-dark); line-height: 1; }
+.plus { font-size: 1.8rem; color: var(--primary); font-weight: 700; margin-right: 4px; }
+.label { color: var(--text-light); font-size: 1.1rem; font-weight: 500; }
+
+.icon-box { width: 90px; height: 90px; background: #2f6fed; border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: auto auto 20px; }
+.icon-box i { color: white; font-size: 35px; }
+
+.modern-testimonials-section { padding: 100px 0; background-color: var(--light-gray); direction: rtl; }
+.testimonials-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+.sub-badge { color: var(--medical-blue); background: rgba(10, 132, 255, 0.1); padding: 6px 16px; border-radius: 30px; font-size: 14px; font-weight: bold; display: block; width: fit-content; margin: 0 auto 15px auto; letter-spacing: 1px; text-align: center; }
+.testimonials-wrapper { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 30px; }
+.modern-card { background: var(--card-white); border-radius: 24px; padding: 40px; position: relative; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04); transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); border: 1px solid rgba(0, 0, 0, 0.03); }
+.modern-card:hover { transform: translateY(-12px); box-shadow: 0 20px 60px rgba(10, 132, 255, 0.1); }
+.patient-profile { display: flex; align-items: center; gap: 15px; }
+.patient-img img { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; }
+
+:root {
+    --primary: #114abb;
+    --primary-dark: #0d3a95;
+    --text-light: rgba(255, 255, 255, 0.85);
+    --border-light: rgba(255, 255, 255, 0.1);
+}
+
+/* Base */
+.footer {
+    font-family: 'Cairo', sans-serif;
+    direction: rtl;
+}
+
+/* CTA */
+.footer__cta {
+    background: #fff;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.footer__cta-title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+.footer__cta-text {
+    color: #64748b;
+    margin-top: 10px;
+}
+
+.footer__cta-actions {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+/* Buttons (Reusable) */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 26px;
+    border-radius: 50px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn--primary {
+    background: var(--primary);
+    color: #fff;
+}
+
+.btn--primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-3px);
+}
+
+.btn--outline {
+    border: 2px solid var(--primary);
+    color: var(--primary);
+}
+
+.btn--outline:hover {
+    background: #f1f5f9;
+}
+
+/* MAIN */
+.footer__main {
+    background: var(--primary);
+    padding: 60px 20px;
+    color: white;
+}
+
+.footer__container {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    gap: 50px;
+    justify-content: space-between;
+}
+
+.footer__logo {
+    max-width: 180px;
+    margin-bottom: 20px;
+}
+
+.footer__description {
+    color: var(--text-light);
+    line-height: 1.8;
+}
+
+.footer__title {
+    font-weight: 700;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.footer__title::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: -5px;
+    width: 40px;
+    height: 3px;
+    background: white;
+}
+
+/* List */
+.footer__list {
+    list-style: none;
+    padding: 0;
+}
+
+.footer__list li {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+/* Social */
+.footer__social {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+}
+
+.footer__icons {
+    margin-top: 10px;
+    display: flex;
+    gap: 15px;
+}
+
+.footer__icons a {
+    color: white;
+    transition: 0.3s;
+}
+
+.footer__icons a:hover {
+    opacity: 0.7;
+}
+
+/* Bottom */
+.footer__bottom {
+    text-align: center;
+    padding: 20px;
+    background: rgba(0,0,0,0.2);
+    font-size: 0.85rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .footer__container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer__icons {
+        justify-content: center;
+    }
+}
+
+@media(max-width: 768px) {
+    .navbar { padding: 3px 20px; }
+    .main-title { font-size: 2rem; }
+    .number { font-size: 2.2rem; }
+    .hero-content h1 { font-size: 32px; }
+    .modern-card { padding: 30px; }
+}
+
+.specialties-hero { height: 600px; background-image: linear-gradient(rgba(11, 74, 187, 0.8), rgba(0, 180, 216, 0.7)), url('../images/num1.jpg'); background-position: center; background-size: cover; background-repeat: no-repeat; background-attachment: fixed; display: flex; align-items: center; justify-content: center; text-align: center; color: white; }
+.hero-content h1 { font-size: 3rem; margin-bottom: 15px; font-weight: 800; }
+.hero-content p { font-size: 1.2rem; max-width: 600px; margin: 0 auto; opacity: 0.9; }
+
+.search-section { margin-top: -40px; padding: 0 10%; }
+.search-container { background: var(--card-white); padding: 30px; border-radius: 20px; box-shadow: var(--shadow-soft); display: flex; flex-direction: column; align-items: center; gap: 20px; }
+.search-box { width: 100%; max-width: 700px; position: relative; }
+.search-box i { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--primary-medical); }
+.search-box input { width: 100%; padding: 15px 50px 15px 20px; border: 2px solid #eee; border-radius: 50px; outline: none; transition: var(--transition); }
+.search-box input:focus { border-color:var(--primary-medical); box-shadow: 0 0 15px rgba(0, 180, 216, 0.1); }
+.tag { padding: 8px 20px; background: var(--light-gray); border-radius: 30px; cursor: pointer; font-size: 0.9rem; transition: var(--transition); color: var(--text-light); }
+.tag.active, .tag:hover { background: var(--primary-medical); color: white; }
+
+.cards-section { padding: 60px 10%; }
+.specialties-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 35px; }
+.med-card { background: var(--card-white); border-radius: 25px; overflow: hidden; transition: var(--transition); border: 1px solid rgba(0,0,0,0.03); display: flex; flex-direction: column; }
+.med-card:hover { transform: translateY(-15px); box-shadow: var(--shadow-hover); }
+.img-area { position: relative; height: 200px; overflow: hidden; }
+.img-area img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.img-area::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0, 180, 216, 0.9), transparent); opacity: 0; transition: opacity 0.4s ease; }
+.med-card:hover .img-area::after { opacity: 1; }
+.med-card:hover .img-area img { transform: scale(1.1); }
+.content-area { padding: 40px 25px 25px; position: relative; text-align: center; }
+.icon-circle { width: 65px; height: 65px; background: var(--medical-gradient); color: white; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 24px; position: absolute; top: -32px; left: 50%; transform: translateX(-50%) rotate(45deg); }
+.icon-circle i { transform: rotate(-45deg); }
+.content-area h3 { color: var(--primary-medical); margin-bottom: 12px; font-size: 1.25rem; }
+.content-area p { color: var(--text-light); font-size: 0.9rem; line-height: 1.6; height: 70px; }
+.action-link { display: inline-block; margin-top: 15px; color: var(--primary-medical); text-decoration: none; font-weight: 700; font-size: 0.9rem; }
